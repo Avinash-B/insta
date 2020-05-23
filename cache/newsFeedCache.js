@@ -7,6 +7,16 @@ const maxDuration = 5*86400*1000;
 const removeRedundancyInterval = 30*60*1000;
 
 
+const addPostToCache = (user_uuid, post_uuid, created_at) => {
+    if(user_uuid in feedCache){
+        if(feedCache[user_uuid].length > 25) feedCache[user_uuid].shift();
+        feedCache.push([post_uuid, created_at])
+    }
+    else{
+        feedCache[user_uuid] = [[post_uuid, created_at]];
+    }
+};
+
 const removeRedundancy = () => {
     setInterval( () => {
         let now = new Date();
@@ -24,6 +34,7 @@ const removeRedundancy = () => {
 };
 
 module.exports = {
+    addPostToCache,
     removeRedundancy,
     feedCache,
 }
