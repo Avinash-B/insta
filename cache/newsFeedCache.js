@@ -13,7 +13,7 @@ const removeRedundancyInterval = 30*60*1000;
 const addPostToCache = (user_uuid, post_uuid, created_at) => {
     if(user_uuid in feedCache){
         if(feedCache[user_uuid].length > 25) feedCache[user_uuid].shift();
-        feedCache.push([post_uuid, created_at])
+        feedCache[user_uuid].push([post_uuid, created_at])
     }
     else{
         feedCache[user_uuid] = [[post_uuid, created_at]];
